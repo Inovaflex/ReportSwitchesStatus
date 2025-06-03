@@ -19,15 +19,15 @@ blueprint:
       name: Group with binary sensors    
       selector: 
         entity:
-            domain: 
-              - binary_sensor
+          domain: 
+            - binary_sensor
             
     notify_target:
       name: Script to use for notify
       selector:
-          entity:
-            domain: 
-              - script          
+        entity:
+          domain: 
+            - script          
               
     time_to_run:
       name: Time to run
