@@ -12,19 +12,22 @@ blueprint:
       name: Group with switches
       selector:
         entity:
-          domain: switch
+          domain: 
+            - switch
              
     group_with_sensors:
       name: Group with binary sensors    
       selector: 
         entity:
-            domain: binary_sensor
+            domain: 
+              - binary_sensor
             
     notify_target:
       name: Script to use for notify
       selector:
           entity:
-            domain: script          
+            domain: 
+              - script          
               
     time_to_run:
       name: Time to run
@@ -57,13 +60,13 @@ action:
 - choose: 
   - conditions: 
     - condition: template
-      value_template: {{ notify_script != '' }}
+      value_template: "{{ notify_script != '' }}"
     sequence:
     - service: !input notify_target
       data: 
         title: !input report_title
         message: >                 
-           {% if switch_entities_on | length == 0 %}
+          {% if switch_entities_on | length == 0 %}
             {% set msg = "All switches are off." %}
           {% else %}
             {% set msg = "These switches are ON: " ~ switch_entities_on | join(', ') ~ "." %}
