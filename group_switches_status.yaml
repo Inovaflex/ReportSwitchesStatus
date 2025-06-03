@@ -3,7 +3,7 @@ blueprint:
   description: Report members in a groups that are On.
   author: Tomas Haglund
   domain: automation
-  source_url: https://https://github.com/Inovaflex/ReportSwitchesStatus/edit/main/group_switches_status.yaml
+  source_url: https://github.com/Inovaflex/ReportSwitchesStatus/blob/main/group_switches_status.yaml
   input:
     report_title:
       name: Report title
