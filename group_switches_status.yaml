@@ -7,21 +7,18 @@ blueprint:
     report_title: 
       name: Report title
       default: "Report members On"
-        
     group_with_switches:
       name: Group with switches
       selector:
         entity:
           domain: 
-            - switch
-             
+            - switch         
     group_with_sensors:
       name: Group with binary sensors    
       selector: 
         entity:
           domain: 
             - binary_sensor
-            
     notify_target:
       name: Script to use for notify
       selector:
@@ -33,10 +30,10 @@ blueprint:
       name: Time to run
       selector:
         time:
-trigger:
-  - platform: time
+
+triggers:
+  - trigger: time
     at: !input time_to_run
-    
 condition: []
 
 action:
