@@ -62,7 +62,7 @@ action:
     - service: !input notify_target
       data: 
         title: !input report_title
-        message:                  
+        message: >                 
            {% if switch_entities_on | length == 0 %}
             {% set msg = "All switches are off." %}
           {% else %}
