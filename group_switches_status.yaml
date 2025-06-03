@@ -1,0 +1,79 @@
+blueprint:
+  name: Report groupmembers On
+  description: Report members in a groups that are On.
+  author: Tomas Haglund
+  domain: automation
+  input:
+    report_title: 
+      name: Report title
+      default: "Report members On"
+        
+    group_with_switches:
+      name: Group with switches
+      selector:
+        entity:
+          domain: switch
+             
+    group_with_sensors:
+      name: Group with binary sensors    
+      selector: 
+        entity:
+            domain: binary_sensor
+            
+    notify_target:
+      name: Script to use for notify
+      selector:
+          entity:
+            domain: script          
+              
+    time_to_run:
+      name: Time to run
+      selector:
+        time:
+trigger:
+  - platform: time
+    at: !input time_to_run
+    
+condition: []
+
+action:
+- variables:
+    switch_group: !input group_with_switches
+    notify_script: !input notify_target
+    binary_group: !input group_with_sensors
+      
+    switch_entities_on: >
+      {{ expand(switch_group) 
+            | selectattr('state', 'equalto', 'on')
+            | map(attribute='name')
+            | list }}
+            
+    binary_entities_on: >
+      {{ expand(binary_group) 
+            | selectattr('state', 'equalto', 'on')
+            | map(attribute='name')
+            | list }}
+            
+- choose: 
+  - conditions: 
+    - condition: template
+      value_template: "{{ notify_script != '' }}"
+    sequence:
+    - service: !input notify_target
+      data: 
+        title: !input report_title
+        message: >                 
+          {% if switch_entities_on | length == 0 %}
+            {% set msg = "All switches are off." %}
+          {% else %}
+            {% set msg = "These switches are ON: " ~ switch_entities_on | join(', ') ~ "." %}
+          {% endif %}
+          {% if binary_entities_on | length == 0 %}
+            {% set msg1 = "All binaries are closed." %}
+          {% else %}
+            {% set msg1 = "These binaries are opened: " ~ binary_entities_on | join(', ') ~ "." %}
+          {% endif %}
+          {{ msg }} {{ msg1 }}
+
+mode: single
+
