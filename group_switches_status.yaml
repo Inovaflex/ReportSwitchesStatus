@@ -75,5 +75,5 @@ action:
             {% endif %}
             {{ msg }} {{ msg1 }}
 
-mode: single
+  mode: single
 
