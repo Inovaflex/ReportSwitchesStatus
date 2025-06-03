@@ -63,14 +63,17 @@ action:
       data: 
         title: !input report_title
         message: >                 
-           "{{ 
-                  'All switches are off.' if switch_entities_on | length == 0
-                  else 'These switches are ON: ' + switch_entities_on | join(', ') + '.' 
-                }}
-                {{
-                  'All binaries are closed.' if binary_entities_on | length == 0
-                  else 'These binaries are opened: ' + binary_entities_on | join(', ') + '.' 
-                }}"
+           {% if switch_entities_on | length == 0 %}
+            {% set msg = "All switches are off." %}
+          {% else %}
+            {% set msg = "These switches are ON: " ~ switch_entities_on | join(', ') ~ "." %}
+          {% endif %}
+          {% if binary_entities_on | length == 0 %}
+            {% set msg1 = "All binaries are closed." %}
+          {% else %}
+            {% set msg1 = "These binaries are opened: " ~ binary_entities_on | join(', ') ~ "." %}
+          {% endif %}
+          {{ msg }} {{ msg1 }}
 
 mode: single
 
