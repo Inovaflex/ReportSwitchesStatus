@@ -60,7 +60,7 @@ action:
 - choose: 
   - conditions: 
     - condition: template
-      value_template: "{{ notify_script != '' }}"
+      value_template: {{ notify_script != '' }}
     sequence:
     - service: !input notify_target
       data: 
