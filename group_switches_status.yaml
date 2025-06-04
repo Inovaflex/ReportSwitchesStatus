@@ -1,6 +1,6 @@
 blueprint:
   name: Report groupmembers On
-  description: Report members in a groups that are On.
+  description: Report members in specific groups that are On.
   author: Tomas Haglund
   domain: automation
   source_url: https://github.com/Inovaflex/ReportSwitchesStatus/blob/main/group_switches_status.yaml
@@ -10,18 +10,21 @@ blueprint:
       default: Report members On
     notify_target:
       name: Script to use for notify
+      description: Script must use title and message
       selector:
         entity:
           domain:
             - script
     group_with_switches:
       name: Group with switches
+      description: Members should have state on/off
       selector:
         entity:
           domain:
             - switch
     group_with_sensors:
       name: Group with binary sensors
+      description: Members should have state on/off
       selector:
         entity:
           domain:
