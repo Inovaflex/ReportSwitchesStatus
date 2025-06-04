@@ -13,4 +13,8 @@ This Home Assistant blueprint reports all switches and binary sensors that are c
 
 This blueprint sends a summary message of which devices are ON every day at a specified time.
 
+## Update
+
+To update a blueprint see : https://www.home-assistant.io/docs/automation/using_blueprints/
+
 
